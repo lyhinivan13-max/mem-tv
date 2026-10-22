@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>МЕМ ТВ - Информационный портал</title>
     
-    <!-- Иконка сайта (favicon) с использованием твоего логотипа -->
     <link rel="icon" type="image/png" href="logo.png">
 
     <style>
         /* =========================================
            ЦВЕТОВЫЕ ПЕРЕМЕННЫЕ (ТЕМЫ)
            ========================================= */
-        
         :root {
             --bg-color: #0d0d0d;
             --text-color: #f4f4f4;
@@ -267,7 +265,7 @@
             font-size: 14px;
         }
 
-        /* Заглушка для видео */
+        /* Заглушка */
         .placeholder-box {
             background-color: var(--card-bg);
             border: 2px dashed var(--border-color);
@@ -283,13 +281,59 @@
             margin-bottom: 15px;
         }
 
-        .placeholder-box p {
-            font-size: 18px;
+        /* =========================================
+           СТИЛИ ДЛЯ СТАТЕЙ
+           ========================================= */
+        .article-container {
+            padding: 40px 20px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .article-title {
+            font-size: 36px; 
+            margin: 20px 0;
+            line-height: 1.3;
+        }
+
+        .article-image {
+            width: 100%; 
+            height: 400px; 
+            background: var(--card-img-bg); 
+            margin-bottom: 25px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            border-radius: 8px; 
             color: var(--card-text-muted);
         }
 
+        .article-text {
+            font-size: 18px; 
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+
+        .back-btn {
+            background: none;
+            border: 2px solid var(--accent-solid);
+            color: var(--accent-solid);
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 16px;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background-color: var(--accent-solid);
+            color: #000;
+        }
+
         /* =========================================
-           АДАПТИВНЫЙ КОНТЕЙНЕР ДЛЯ ЭФИРА (IFRAME)
+           АДАПТИВНЫЙ КОНТЕЙНЕР ДЛЯ ЭФИРА
            ========================================= */
         .live-container {
             margin: 30px 0;
@@ -300,8 +344,7 @@
             border: 2px solid var(--border-color);
             position: relative;
             width: 100%;
-            /* Соотношение сторон 16:9 */
-            padding-top: 56.25%; 
+            padding-top: 56.25%; /* 16:9 */
         }
 
         .live-container iframe {
@@ -329,6 +372,8 @@
             .nav-area { flex-direction: column; gap: 15px; }
             nav ul { flex-wrap: wrap; justify-content: center; }
             .hero-content h1 { font-size: 24px; }
+            .article-title { font-size: 28px; }
+            .article-image { height: 250px; }
         }
     </style>
 </head>
@@ -363,26 +408,28 @@
         
         <!-- ВКЛАДКА: ГЛАВНАЯ -->
         <div id="main" class="tab-content active">
-            <article class="hero">
+            <!-- Главная новость (ведет на полную статью) -->
+            <article class="hero" onclick="openTab('article-main', null)" style="cursor: pointer;">
                 <div class="hero-img">[Здесь будет ваше главное изображение]</div>
                 <div class="hero-content">
                     <span class="tag">Главная новость</span>
-                    <h1>У МЕМ ТВ появился свой сайт</h1>
-                    <p>Подробности в вечернем выпуске.</p>
+                    <h1>Срочный репортаж: В центре города произошло нечто невероятное</h1>
+                    <p>Подробности инцидента выясняют наши корреспонденты. Смотрите эксклюзивное видео в вечернем выпуске.</p>
                 </div>
             </article>
 
             <div class="news-grid">
-                <article class="news-card" onclick="openTab('news', document.querySelectorAll('nav a')[1])">
+                <!-- Карточки на главной (тоже ведут на статьи) -->
+                <article class="news-card" onclick="openTab('article-film', null)">
                     <div class="card-img">[Фото 1]</div>
                     <div class="card-content">
                         <span class="tag">Эксклюзив</span>
-                        <h3>МЕМ ТВ запускает веб-вещание</h3>
-                        <p>Теперь можно не настраивать антенну</p>
+                        <h3>Новый документальный фильм выходит на экраны</h3>
+                        <p>Создатели обещают раскрыть самые шокирующие тайны уходящего года...</p>
                     </div>
                 </article>
 
-                <article class="news-card">
+                <article class="news-card" onclick="openTab('article-news-release', null)">
                     <div class="card-img">[Фото 2]</div>
                     <div class="card-content">
                         <span class="tag">Видео</span>
@@ -391,7 +438,7 @@
                     </div>
                 </article>
 
-                <article class="news-card">
+                <article class="news-card" onclick="openTab('article-city', null)">
                     <div class="card-img">[Фото 3]</div>
                     <div class="card-content">
                         <span class="tag">Общество</span>
@@ -402,11 +449,9 @@
             </div>
         </div>
 
-               <!-- ВКЛАДКА: НОВОСТИ -->
+        <!-- ВКЛАДКА: НОВОСТИ -->
         <div id="news" class="tab-content">
             <div class="news-grid" style="margin-top: 30px;">
-                
-                <!-- Карточка 1 (Политика) - ведет на скрытую статью -->
                 <article class="news-card" onclick="openTab('article-politics', null)">
                     <div class="card-img">[Фото]</div>
                     <div class="card-content">
@@ -415,8 +460,7 @@
                         <p>Обсуждались ключевые вопросы развития инфраструктуры на ближайший год...</p>
                     </div>
                 </article>
-
-                <!-- Карточка 2 (Экономика) - ведет на статью про валюту -->
+                
                 <article class="news-card" onclick="openTab('article-valuta', null)">
                     <div class="card-img">[Фото]</div>
                     <div class="card-content">
@@ -425,42 +469,81 @@
                         <p>Аналитики прогнозируют сохранение текущих показателей на протяжении месяца...</p>
                     </div>
                 </article>
-
-                <!-- Карточка 3 (Спорт) - ведет на статью про спорт -->
+                
                 <article class="news-card" onclick="openTab('article-sport', null)">
                     <div class="card-img">[Фото]</div>
                     <div class="card-content">
                         <span class="tag">Спорт</span>
                         <h3>Наши спортсмены взяли золото</h3>
-                        <p>На прошедших соревнованиях команда показал лучший результат за последние 5 лет...</p>
+                        <p>На прошедших соревнованиях команда показала лучший результат за последние 5 лет...</p>
                     </div>
                 </article>
-
             </div>
         </div>
-        
+
+        <!-- =========================================
+             СКРЫТЫЕ СТАТЬИ (ОТКРЫВАЮТСЯ ПО КЛИКУ)
+             ========================================= -->
+
+        <!-- Статья: Главная новость -->
+        <div id="article-main" class="tab-content">
+            <div class="article-container">
+                <span class="tag">Главная новость</span>
+                <h1 class="article-title">Срочный репортаж: В центре города произошло нечто невероятное</h1>
+                <div class="article-image">[Большая картинка]</div>
+                <p class="article-text">Здесь ты пишешь полный текст главной новости. Подробности инцидента выясняют наши корреспонденты.</p>
+                <p class="article-text">Можешь добавить столько абзацев, сколько нужно. Просто копируй тег &lt;p&gt; и пиши текст внутри.</p>
+                <button class="back-btn" onclick="openTab('main', document.querySelectorAll('nav a')[0])">← Назад на главную</button>
+            </div>
+        </div>
+
+        <!-- Статья: Политика -->
+        <div id="article-politics" class="tab-content">
+            <div class="article-container">
+                <span class="tag">Политика</span>
+                <h1 class="article-title">Сегодня состоялось важное заседание</h1>
+                <div class="article-image">[Картинка]</div>
+                <p class="article-text">Полный текст статьи про политику. Обсуждались ключевые вопросы развития инфраструктуры на ближайший год.</p>
+                <button class="back-btn" onclick="openTab('news', document.querySelectorAll('nav a')[1])">← Назад к новостям</button>
+            </div>
+        </div>
+
+        <!-- Статья: Экономика -->
         <div id="article-valuta" class="tab-content">
-            <div class="container" style="padding: 40px 20px;">
+            <div class="article-container">
                 <span class="tag">Экономика</span>
-                <h1 style="font-size: 36px; margin: 20px 0;">Курс валют стабилизировался</h1>
-                <div style="width: 100%; height: 300px; background: var(--card-img-bg); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: var(--card-text-muted);">[Большая картинка к статье]</div>
-                <p style="font-size: 18px; margin-bottom: 15px;">Здесь ты пишешь полный текст статьи. Аналитики прогнозируют сохранение текущих показателей на протяжении месяца...</p>
-                <p style="font-size: 18px; margin-bottom: 15px;">Можешь добавить еще абзацев, если нужно.</p>
-                <!-- Кнопка "Назад" -->
-                <button class="control-btn" style="margin-top: 20px; color: var(--accent-solid); border: 1px solid var(--accent-solid);" onclick="openTab('news', document.querySelectorAll('nav a')[1])">← Назад к новостям</button>
+                <h1 class="article-title">Курс валют стабилизировался</h1>
+                <div class="article-image">[Картинка]</div>
+                <p class="article-text">Аналитики прогнозируют сохранение текущих показателей на протяжении месяца. Подробности в нашем репортаже.</p>
+                <button class="back-btn" onclick="openTab('news', document.querySelectorAll('nav a')[1])">← Назад к новостям</button>
             </div>
         </div>
 
-         <div id="article-sport" class="tab-content">
-            <div class="container" style="padding: 40px 20px;">
+        <!-- Статья: Спорт -->
+        <div id="article-sport" class="tab-content">
+            <div class="article-container">
                 <span class="tag">Спорт</span>
-                <h1 style="font-size: 36px; margin: 20px 0;">Наши спортсмены взяли золото</h1>
-                <div style="width: 100%; height: 300px; background: var(--card-img-bg); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: var(--card-text-muted);">[Большая картинка к статье]</div>
-                <p style="font-size: 18px; margin-bottom: 15px;">На прошедших соревнованиях команда показала лучший результат за последние 5 лет...</p>
-                <p style="font-size: 18px; margin-bottom: 15px;">Полный текст статьи пиши здесь.</p>
-                <button class="control-btn" style="margin-top: 20px; color: var(--accent-solid); border: 1px solid var(--accent-solid);" onclick="openTab('news', document.querySelectorAll('nav a')[1])">← Назад к новостям</button>
+                <h1 class="article-title">Наши спортсмены взяли золото</h1>
+                <div class="article-image">[Картинка]</div>
+                <p class="article-text">На прошедших соревнованиях команда показала лучший результат за последние 5 лет. Мы гордимся нашими спортсменами!</p>
+                <button class="back-btn" onclick="openTab('news', document.querySelectorAll('nav a')[1])">← Назад к новостям</button>
             </div>
         </div>
+
+        <!-- Статья: Фильм -->
+        <div id="article-film" class="tab-content">
+            <div class="article-container">
+                <span class="tag">Эксклюзив</span>
+                <h1 class="article-title">Новый документальный фильм выходит на экраны</h1>
+                <div class="article-image">[Картинка]</div>
+                <p class="article-text">Создатели обещают раскрыть самые шокирующие тайны уходящего года. Премьера состоится совсем скоро.</p>
+                <button class="back-btn" onclick="openTab('main', document.querySelectorAll('nav a')[0])">← Назад на главную</button>
+            </div>
+        </div>
+
+        <!-- =========================================
+             ОСТАЛЬНЫЕ ВКЛАДКИ
+             ========================================= -->
 
         <!-- ВКЛАДКА: ВИДЕО -->
         <div id="video" class="tab-content">
@@ -470,10 +553,9 @@
             </div>
         </div>
 
-        <!-- ВКЛАДКА: ЭФИР (IFRAME ОТ CATCAST) -->
+        <!-- ВКЛАДКА: ЭФИР -->
         <div id="live" class="tab-content">
             <div class="live-container">
-                <!-- Ссылка от CatCast, адаптированная под ширину сайта -->
                 <iframe src="https://catcast.tv/player/51501" allowfullscreen></iframe>
             </div>
         </div>
@@ -487,7 +569,7 @@
         </div>
     </footer>
 
-    <!-- СКРИПТЫ (Упрощены, так как кастомный плеер больше не нужен) -->
+    <!-- СКРИПТЫ -->
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             
@@ -504,6 +586,9 @@
                 if (navElement) {
                     navElement.classList.add('active');
                 }
+                
+                // Прокрутка наверх при открытии статьи
+                window.scrollTo(0, 0);
             };
 
             // 2. ПЕРЕКЛЮЧЕНИЕ ТЕМЫ
