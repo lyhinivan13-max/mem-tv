@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МЕМ ТВ - Информационный портал</title>
+    
+    <!-- Иконка сайта (favicon) с использованием твоего логотипа -->
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <style>
+        /* =========================================
+           ЦВЕТОВЫЕ ПЕРЕМЕННЫЕ (ТЕМЫ)
+           ========================================= */
+        
+        :root {
+            --bg-color: #0d0d0d;
+            --text-color: #f4f4f4;
+            --header-bg: #000000;
+            --card-bg: #1c1c1c;
+            --card-img-bg: #2a2a2a;
+            --card-text-muted: #a0a0a0;
+            --border-color: #333;
+            
+            --accent-gradient: linear-gradient(135deg, #ffcc00, #d46a00);
+            --accent-solid: #e68a00;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f4f4f4;
+            --text-color: #121212;
+            --header-bg: #ffffff;
+            --card-bg: #ffffff;
+            --card-img-bg: #e0e0e0;
+            --card-text-muted: #555555;
+            --border-color: #ddd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        /* Шапка сайта */
+        header {
+            background-color: var(--header-bg);
+            border-bottom: 4px solid transparent;
+            border-image: var(--accent-gradient) 1;
+            padding: 10px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .logo-img {
+            width: 60px;
+            height: 60px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 5px rgba(255, 200, 0, 0.4));
+        }
+
+        .logo-text {
+            font-size: 28px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-color);
+        }
+
+        .logo-text span {
+            background: var(--accent-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-area {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        nav a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 14px;
+            transition: color 0.3s;
+            cursor: pointer;
+            padding-bottom: 5px;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav a:hover, nav a.active {
+            color: var(--accent-solid);
+            border-bottom: 2px solid var(--accent-solid);
+        }
+
+        .theme-toggle {
+            background: none;
+            border: 2px solid var(--accent-solid);
+            color: var(--text-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s;
+            width: 140px;
+            text-align: center;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-solid);
+            color: #000;
+        }
+
+        /* --- КОНТЕНТ ВКЛАДОК --- */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.4s;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Главная новость */
+        .hero {
+            margin: 30px 0;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid var(--border-color);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .hero-img {
+            width: 100%;
+            height: 400px;
+            background: var(--card-img-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--card-text-muted);
+            font-size: 20px;
+        }
+
+        .hero-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+            padding: 40px 20px 20px;
+            color: #ffffff; 
+        }
+
+        .hero-content h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .tag {
+            background: var(--accent-gradient);
+            color: #000;
+            padding: 4px 12px;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 4px;
+            display: inline-block;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .news-card {
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border-bottom: 3px solid transparent;
+            transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            border-image: var(--accent-gradient) 1;
+            box-shadow: 0 10px 20px rgba(230, 138, 0, 0.15);
+        }
+
+        .card-img {
+            height: 200px;
+            background-color: var(--card-img-bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--card-text-muted);
+        }
+
+        .card-content {
+            padding: 20px;
+        }
+
+        .card-content h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            transition: color 0.3s;
+            color: var(--text-color);
+        }
+
+        .news-card:hover .card-content h3 {
+            color: var(--accent-solid);
+        }
+
+        .card-content p {
+            color: var(--card-text-muted);
+            font-size: 14px;
+        }
+
+        /* Заглушка для видео */
+        .placeholder-box {
+            background-color: var(--card-bg);
+            border: 2px dashed var(--border-color);
+            border-radius: 8px;
+            padding: 60px 20px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .placeholder-box h2 {
+            font-size: 28px;
+            color: var(--accent-solid);
+            margin-bottom: 15px;
+        }
+
+        .placeholder-box p {
+            font-size: 18px;
+            color: var(--card-text-muted);
+        }
+
+        /* =========================================
+           АДАПТИВНЫЙ КОНТЕЙНЕР ДЛЯ ЭФИРА (IFRAME)
+           ========================================= */
+        .live-container {
+            margin: 30px 0;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: #000;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid var(--border-color);
+            position: relative;
+            width: 100%;
+            /* Соотношение сторон 16:9 */
+            padding-top: 56.25%; 
+        }
+
+        .live-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Подвал */
+        footer {
+            background-color: var(--header-bg);
+            border-top: 1px solid var(--border-color);
+            padding: 30px 0;
+            text-align: center;
+            color: var(--card-text-muted);
+            font-size: 14px;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 850px) {
+            .header-content { flex-direction: column; gap: 15px; }
+            .nav-area { flex-direction: column; gap: 15px; }
+            nav ul { flex-wrap: wrap; justify-content: center; }
+            .hero-content h1 { font-size: 24px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка -->
+    <header>
+        <div class="container header-content">
+            <a class="logo-container" onclick="openTab('main', document.querySelectorAll('nav a')[0])">
+                <img src="logo.png" alt="МЕМ ТВ" class="logo-img">
+                <div class="logo-text">МЕМ <span>ТВ</span></div>
+            </a>
+            
+            <div class="nav-area">
+                <nav>
+                    <ul>
+                        <li><a class="active" onclick="openTab('main', this)">Главная</a></li>
+                        <li><a onclick="openTab('news', this)">Новости</a></li>
+                        <li><a onclick="openTab('video', this)">Видео</a></li>
+                        <li><a onclick="openTab('live', this)">Эфир</a></li>
+                    </ul>
+                </nav>
+                <button class="theme-toggle" id="theme-btn">
+                    Темная
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="container">
+        
+        <!-- ВКЛАДКА: ГЛАВНАЯ -->
+        <div id="main" class="tab-content active">
+            <article class="hero">
+                <div class="hero-img">[Здесь будет ваше главное изображение]</div>
+                <div class="hero-content">
+                    <span class="tag">Главная новость</span>
+                    <h1>Срочный репортаж: В центре города произошло нечто невероятное</h1>
+                    <p>Подробности инцидента выясняют наши корреспонденты. Смотрите эксклюзивное видео в вечернем выпуске.</p>
+                </div>
+            </article>
+
+            <div class="news-grid">
+                <article class="news-card" onclick="openTab('news', document.querySelectorAll('nav a')[1])">
+                    <div class="card-img">[Фото 1]</div>
+                    <div class="card-content">
+                        <span class="tag">Эксклюзив</span>
+                        <h3>Новый документальный фильм выходит на экраны</h3>
+                        <p>Создатели обещают раскрыть самые шокирующие тайны уходящего года...</p>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="card-img">[Фото 2]</div>
+                    <div class="card-content">
+                        <span class="tag">Видео</span>
+                        <h3>Смотрите полный выпуск новостей за сегодня</h3>
+                        <p>Все главные события страны и мира в одном видео. Не пропустите...</p>
+                    </div>
+                </article>
+
+                <article class="news-card">
+                    <div class="card-img">[Фото 3]</div>
+                    <div class="card-content">
+                        <span class="tag">Общество</span>
+                        <h3>Как изменится жизнь горожан в следующем году</h3>
+                        <p>Эксперты рассказали о грядущих реформах и нововведениях в инфраструктуре...</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА: НОВОСТИ -->
+        <div id="news" class="tab-content">
+            <div class="news-grid" style="margin-top: 30px;">
+                <article class="news-card">
+                    <div class="card-img">[Фото]</div>
+                    <div class="card-content">
+                        <span class="tag">Политика</span>
+                        <h3>Сегодня состоялось важное заседание</h3>
+                        <p>Обсуждались ключевые вопросы развития инфраструктуры на ближайший год...</p>
+                    </div>
+                </article>
+                <article class="news-card">
+                    <div class="card-img">[Фото]</div>
+                    <div class="card-content">
+                        <span class="tag">Экономика</span>
+                        <h3>Курс валют стабилизировался</h3>
+                        <p>Аналитики прогнозируют сохранение текущих показателей на протяжении месяца...</p>
+                    </div>
+                </article>
+                <article class="news-card">
+                    <div class="card-img">[Фото]</div>
+                    <div class="card-content">
+                        <span class="tag">Спорт</span>
+                        <h3>Наши спортсмены взяли золото</h3>
+                        <p>На прошедших соревнованиях команда показала лучший результат за последние 5 лет...</p>
+                    </div>
+                </article>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА: ВИДЕО -->
+        <div id="video" class="tab-content">
+            <div class="placeholder-box">
+                <h2>Медиатека</h2>
+                <p>Здесь будут размещены записи наших программ, репортажи и документальные фильмы.</p>
+            </div>
+        </div>
+
+        <!-- ВКЛАДКА: ЭФИР (IFRAME ОТ CATCAST) -->
+        <div id="live" class="tab-content">
+            <div class="live-container">
+                <!-- Ссылка от CatCast, адаптированная под ширину сайта -->
+                <iframe src="https://catcast.tv/player/51501" allowfullscreen></iframe>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 МЕМ ТВ. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <!-- СКРИПТЫ (Упрощены, так как кастомный плеер больше не нужен) -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // 1. ПЕРЕКЛЮЧЕНИЕ ВКЛАДОК
+            window.openTab = function(tabId, navElement) {
+                const tabs = document.querySelectorAll('.tab-content');
+                tabs.forEach(tab => tab.classList.remove('active'));
+
+                const navLinks = document.querySelectorAll('nav a');
+                navLinks.forEach(link => link.classList.remove('active'));
+
+                document.getElementById(tabId).classList.add('active');
+
+                if (navElement) {
+                    navElement.classList.add('active');
+                }
+            };
+
+            // 2. ПЕРЕКЛЮЧЕНИЕ ТЕМЫ
+            const themeBtn = document.getElementById('theme-btn');
+            const htmlElement = document.documentElement;
+
+            let currentTheme = localStorage.getItem('theme') || 'dark';
+            htmlElement.setAttribute('data-theme', currentTheme);
+            themeBtn.textContent = (currentTheme === 'dark') ? 'Темная' : 'Светлая';
+
+            themeBtn.addEventListener('click', function() {
+                let theme = htmlElement.getAttribute('data-theme');
+                let newTheme = (theme === 'dark') ? 'light' : 'dark';
+                
+                htmlElement.setAttribute('data-theme', newTheme);
+                localStorage.setItem('theme', newTheme);
+                themeBtn.textContent = (newTheme === 'dark') ? 'Темная' : 'Светлая';
+            });
+
+        });
+    </script>
+</body>
+</html>
