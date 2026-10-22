@@ -452,6 +452,7 @@
         <!-- ВКЛАДКА: НОВОСТИ -->
         <div id="news" class="tab-content">
             <div class="news-grid" style="margin-top: 30px;">
+                <!-- Исправлен ID на article-politics -->
                 <article class="news-card" onclick="openTab('article-politics', null)">
                     <div class="card-img">[Фото]</div>
                     <div class="card-content">
@@ -489,16 +490,16 @@
         <div id="article-main" class="tab-content">
             <div class="article-container">
                 <span class="tag">Главная новость</span>
-                <h1 class="article-title">Срочный репортаж: В центре города произошло нечто невероятное</h1>
+                <h1 class="article-title">МЕМ ТВ запустил сайт</h1>
                 <div class="article-image">[Большая картинка]</div>
-                <p class="article-text">Здесь ты пишешь полный текст главной новости. Подробности инцидента выясняют наши корреспонденты.</p>
+                <p class="article-text">Смотрите в вечернем выпуске. Здесь ты пишешь полный текст главной новости.</p>
                 <p class="article-text">Можешь добавить столько абзацев, сколько нужно. Просто копируй тег &lt;p&gt; и пиши текст внутри.</p>
                 <button class="back-btn" onclick="openTab('main', document.querySelectorAll('nav a')[0])">← Назад на главную</button>
             </div>
         </div>
 
-        <!-- Статья: Политика -->
-        <div id="article-grid" class="tab-content">
+        <!-- Статья: Политика (ID исправлен) -->
+        <div id="article-politics" class="tab-content">
             <div class="article-container">
                 <span class="tag">Политика</span>
                 <h1 class="article-title">Сегодня состоялось важное заседание</h1>
@@ -541,6 +542,28 @@
             </div>
         </div>
 
+        <!-- Статья: Выпуск новостей (Добавлена) -->
+        <div id="article-news-release" class="tab-content">
+            <div class="article-container">
+                <span class="tag">Видео</span>
+                <h1 class="article-title">Смотрите полный выпуск новостей за сегодня</h1>
+                <div class="article-image">[Здесь может быть видеоплеер]</div>
+                <p class="article-text">Все главные события страны и мира в одном видео. Не пропустите!</p>
+                <button class="back-btn" onclick="openTab('main', document.querySelectorAll('nav a')[0])">← Назад на главную</button>
+            </div>
+        </div>
+
+        <!-- Статья: Общество (Добавлена) -->
+        <div id="article-city" class="tab-content">
+            <div class="article-container">
+                <span class="tag">Общество</span>
+                <h1 class="article-title">Как изменится жизнь горожан в следующем году</h1>
+                <div class="article-image">[Картинка]</div>
+                <p class="article-text">Эксперты рассказали о грядущих реформах и нововведениях в инфраструктуре. Читайте подробности в нашей статье.</p>
+                <button class="back-btn" onclick="openTab('main', document.querySelectorAll('nav a')[0])">← Назад на главную</button>
+            </div>
+        </div>
+
         <!-- =========================================
              ОСТАЛЬНЫЕ ВКЛАДКИ
              ========================================= -->
@@ -565,7 +588,7 @@
     <!-- Подвал -->
     <footer>
         <div class="container">
-            <p>&copy; 2026 МЕМ ТВ. Все права защищены.</p>
+            <p>&copy; 2026 Тарелочное ТВ. Все права защищены.</p>
         </div>
     </footer>
 
