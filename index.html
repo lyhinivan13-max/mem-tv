@@ -367,8 +367,8 @@
                 <div class="hero-img">[Здесь будет ваше главное изображение]</div>
                 <div class="hero-content">
                     <span class="tag">Главная новость</span>
-                    <h1>Срочный репортаж: В центре города произошло нечто невероятное</h1>
-                    <p>Подробности инцидента выясняют наши корреспонденты. Смотрите эксклюзивное видео в вечернем выпуске.</p>
+                    <h1>У МЕМ ТВ появился свой сайт</h1>
+                    <p>Подробности в вечернем выпуске.</p>
                 </div>
             </article>
 
@@ -377,8 +377,8 @@
                     <div class="card-img">[Фото 1]</div>
                     <div class="card-content">
                         <span class="tag">Эксклюзив</span>
-                        <h3>Новый документальный фильм выходит на экраны</h3>
-                        <p>Создатели обещают раскрыть самые шокирующие тайны уходящего года...</p>
+                        <h3>МЕМ ТВ запускает веб-вещание</h3>
+                        <p>Теперь можно не настраивать антенну</p>
                     </div>
                 </article>
 
@@ -402,10 +402,12 @@
             </div>
         </div>
 
-        <!-- ВКЛАДКА: НОВОСТИ -->
+               <!-- ВКЛАДКА: НОВОСТИ -->
         <div id="news" class="tab-content">
             <div class="news-grid" style="margin-top: 30px;">
-                <article class="news-card">
+                
+                <!-- Карточка 1 (Политика) - ведет на скрытую статью -->
+                <article class="news-card" onclick="openTab('article-politics', null)">
                     <div class="card-img">[Фото]</div>
                     <div class="card-content">
                         <span class="tag">Политика</span>
@@ -413,7 +415,9 @@
                         <p>Обсуждались ключевые вопросы развития инфраструктуры на ближайший год...</p>
                     </div>
                 </article>
-                <article class="news-card">
+
+                <!-- Карточка 2 (Экономика) - ведет на статью про валюту -->
+                <article class="news-card" onclick="openTab('article-valuta', null)">
                     <div class="card-img">[Фото]</div>
                     <div class="card-content">
                         <span class="tag">Экономика</span>
@@ -421,14 +425,40 @@
                         <p>Аналитики прогнозируют сохранение текущих показателей на протяжении месяца...</p>
                     </div>
                 </article>
-                <article class="news-card">
+
+                <!-- Карточка 3 (Спорт) - ведет на статью про спорт -->
+                <article class="news-card" onclick="openTab('article-sport', null)">
                     <div class="card-img">[Фото]</div>
                     <div class="card-content">
                         <span class="tag">Спорт</span>
                         <h3>Наши спортсмены взяли золото</h3>
-                        <p>На прошедших соревнованиях команда показала лучший результат за последние 5 лет...</p>
+                        <p>На прошедших соревнованиях команда показал лучший результат за последние 5 лет...</p>
                     </div>
                 </article>
+
+            </div>
+        </div>
+        
+        <div id="article-valuta" class="tab-content">
+            <div class="container" style="padding: 40px 20px;">
+                <span class="tag">Экономика</span>
+                <h1 style="font-size: 36px; margin: 20px 0;">Курс валют стабилизировался</h1>
+                <div style="width: 100%; height: 300px; background: var(--card-img-bg); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: var(--card-text-muted);">[Большая картинка к статье]</div>
+                <p style="font-size: 18px; margin-bottom: 15px;">Здесь ты пишешь полный текст статьи. Аналитики прогнозируют сохранение текущих показателей на протяжении месяца...</p>
+                <p style="font-size: 18px; margin-bottom: 15px;">Можешь добавить еще абзацев, если нужно.</p>
+                <!-- Кнопка "Назад" -->
+                <button class="control-btn" style="margin-top: 20px; color: var(--accent-solid); border: 1px solid var(--accent-solid);" onclick="openTab('news', document.querySelectorAll('nav a')[1])">← Назад к новостям</button>
+            </div>
+        </div>
+
+         <div id="article-sport" class="tab-content">
+            <div class="container" style="padding: 40px 20px;">
+                <span class="tag">Спорт</span>
+                <h1 style="font-size: 36px; margin: 20px 0;">Наши спортсмены взяли золото</h1>
+                <div style="width: 100%; height: 300px; background: var(--card-img-bg); margin-bottom: 20px; display: flex; align-items: center; justify-content: center; border-radius: 8px; color: var(--card-text-muted);">[Большая картинка к статье]</div>
+                <p style="font-size: 18px; margin-bottom: 15px;">На прошедших соревнованиях команда показала лучший результат за последние 5 лет...</p>
+                <p style="font-size: 18px; margin-bottom: 15px;">Полный текст статьи пиши здесь.</p>
+                <button class="control-btn" style="margin-top: 20px; color: var(--accent-solid); border: 1px solid var(--accent-solid);" onclick="openTab('news', document.querySelectorAll('nav a')[1])">← Назад к новостям</button>
             </div>
         </div>
 
